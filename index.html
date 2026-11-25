@@ -43,7 +43,7 @@ bash:{label:'Bash',ext:'sh',runner:'editor',sample:'echo "Hello, PolyRun!"'}
 };
 let files=[{name:'main.py',lang:'python',code:LANG.python.sample}],current=0,editor,models=[],pyodide=null;
 const save=()=>{if(editor&&models[current])files[current].code=editor.getValue();try{localStorage.setItem('polyrun-files',JSON.stringify(files))}catch(e){}};
-try{const saved=JSON.parse(localStorage.getItem('polyrun-files'));if(Array.isArray(saved)&&saved.length)files=saved.filter(f=>LANG[f.lang])}catch(e){}
+try{const saved=JSON.parse(localStorage.getItem('polyrun-files'));if(Array.isArray(saved)){const valid=saved.filter(f=>f&&typeof f.name==='string'&&typeof f.code==='string'&&LANG[f.lang]);if(valid.length)files=valid}}catch(e){files=[{name:'main.py',lang:'python',code:LANG.python.sample}]}
 function renderFiles(){$('files').innerHTML='';files.forEach((f,i)=>{const d=document.createElement('div');d.className='file'+(i===current?' active':'');d.textContent='▤　'+f.name;d.onclick=()=>openFile(i);$('files').append(d)})}
 function openFile(i){save();current=i;editor.setModel(models[i]);$('filename').textContent=files[i].name;$('lang').value=files[i].lang;renderFiles()}
 function setTab(name){document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===name));['output','stdin','preview','problems'].forEach(n=>$(n).style.display=n===name?'block':'none')}
