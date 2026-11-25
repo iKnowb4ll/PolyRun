@@ -43,7 +43,7 @@ C, C++, Java, C#, Go, Rust, PHP, Ruby, and Bash can be edited and syntax-highlig
 
 - The syntax assistant checks a limited set of common mistakes; it is not a full compiler or AI repair system.
 - Formatting depends on the language formatter available in Monaco.
-- Long-running or infinite JavaScript tasks are stopped after a short time limit. Python execution does not yet have a hard timeout.
+- JavaScript and Python currently run in the browser without a reliable hard timeout. Avoid infinite loops or very long-running programs; they can make the tab temporarily unresponsive.
 - HTML/CSS preview is sandboxed and may not support every browser API.
 - C, C++, Java, C#, Go, Rust, PHP, Ruby, and Bash need separate browser-compatible runtimes before PolyRun can execute them locally.
 
